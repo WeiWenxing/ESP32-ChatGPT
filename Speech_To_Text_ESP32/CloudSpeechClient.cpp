@@ -2,6 +2,8 @@
 #include "network_param.h"
 #include <base64.h>
 #include <ArduinoJson.h>
+#include <WiFi.h>
+
 CloudSpeechClient::CloudSpeechClient(Authentication authentication) 
 {
   this->authentication = authentication;
@@ -32,7 +34,7 @@ void CloudSpeechClient::PrintHttpBody2(Audio* audio)
 }
 
 void CloudSpeechClient::Transcribe(Audio* audio) {
-  String HttpBody1 = "{\"config\":{\"encoding\":\"LINEAR16\",\"sampleRateHertz\":16000,\"languageCode\":\"en-IN\"},\"audio\":{\"content\":\"";
+  String HttpBody1 = "{\"config\":{\"encoding\":\"LINEAR16\",\"sampleRateHertz\":16000,\"languageCode\":\"en-US\"},\"audio\":{\"content\":\"";
   String HttpBody3 = "\"}}\r\n\r\n";
   int httpBody2Length = (audio->wavDataSize + sizeof(audio->paddedHeader)) * 4 / 3; // 4/3 is from base64 encoding
   String ContentLength = String(HttpBody1.length() + httpBody2Length + HttpBody3.length());
